@@ -1,34 +1,42 @@
-const ButtonRow={
+const InputForm={
     template:`
-    <button @click='onButtonClick' name='button-hoodie' value='fullstack-hoodie' class='ui button'>Hoodie</button>
-<button @click='onButtonClick' name='button-tee' value='fullstack-tee' class='ui button'>Tee</button>
-<button @click='onButtonClick' name='button-fitted-cap' value='fullstack-fitted-cap' class='ui button'>Fitted Cap</button>
-<button @click='onButtonClick' name='button-jacket' value='fullstack-jacket' class='ui button'>Jacket</button>
+    <div class="input-form">
+  <form @submit='submitForm' class='ui form'>
+    <div class="field">
+      <input v-model="newItem" placeholder="Add an Item!" type="text">
+    </div>
+    <button class="ui button">Submit</button>
+  </form>
+  
+<div class="ui segment">
+<h4 class="ui header">Items</h4>
+  <ul>
+     <li v-for="item in items" class="item">{{item}}</li>
+  </ul>
+</div>
+</div>
     `,
+    data(){
+        return{
+            newItem:'',
+            items:[]
+        }
+    },
     methods:{
-        // onHoodieClick(evt){
-        //     console.log("The user clicked button-hoodie",evt);
-        // },         
-        // onTeeClick(evt){
-        //     console.log("The user clicked button-tee",evt);
-        // },
-        // onFittedCapClick(evt){
-        //     console.log("The user clicked button-fitted-cap",evt);
-        // },
-        // onJacketClick(evt){
-        //     console.log("The user clicked button-jacket",evt);
-        // },
+       submitForm(evt){
+           this.items.push(this.newItem)
+           this.newItem=''
+           evt.preventDefault();
+       }
 
 
        // shift+alt+f
-        onButtonClick(evt){
-            const button =evt.target;
-            console.log(`The user clicked ${button.name}:${button.value}` );
+     
         }
     }
-}
+
 Vue.createApp({
     components:{
-        "button-row": ButtonRow
+       "input-form":InputForm,
     }
 }).mount('#app')
